@@ -120,13 +120,12 @@ study_df =
   study_df %>%
   unnest() %>% 
 ## manipulate the file name to "arm control" and "subject id"
-  mutate(subject_id = substr(file, 1, 6),
-         control_arm = substr(file, 1, 3)) %>% 
+  mutate(control_arm = substr(file, 1, 3),
+         subject_id = substr(file, 1, 6)) %>% 
 ## pivot the data
-  select(-file) %>% 
   pivot_longer(week_1: week_8, values_to = "data", names_to = "week", 
-               names_prefix = "week_") %>% 
-  relocate(control_arm, subject_id)
+  names_prefix = "week_") %>% 
+  relocate(control_arm, subject_id) 
 ```
 
 #### d) Make a spaghetti plot showing observations on each subject over time, and comment on differences between groups.
